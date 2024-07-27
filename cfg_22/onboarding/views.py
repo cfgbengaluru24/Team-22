@@ -4,6 +4,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from pymongo import MongoClient
 from dotenv import load_dotenv
+from django.http import JsonResponse
 import os
 import random
 from datetime import datetime
@@ -75,7 +76,7 @@ def save_data(request):
         # print(doc)
         onboarding.insert_one(doc)
         print("now redirecting")
-        return render(request, 'onboarding/index.html')
+        return JsonResponse({'success': True, 'message': 'Data saved successfully.'})
     except Exception as e:
         return HttpResponse('Error saving data: ' + str(e))
 
@@ -146,3 +147,4 @@ def index(request):
 
 def identify(request):
     return render(request, 'onboarding/identify.html')
+

@@ -45,3 +45,5 @@ def fetch_default(request):
     
     return render(request, 'cost_analysis/cost_analysis_form.html', averages)
 
+def cost(request):
+    return render(request, 'cost_analysis/cost_analysis_form.html')

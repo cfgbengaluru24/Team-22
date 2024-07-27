@@ -41,23 +41,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         fetch('/save_data', { // Update this URL to your API endpoint
             method: 'POST',
-            body: formData,
-            // headers: {
-            //     'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value // Include CSRF token for Django
-            // }
+            body: formData
         })
         .then(response => response.json()) // Parse JSON response
         .then(data => {
             if (data.success) {
-                // Redirect to /index page
-                document.location.href = "/index";
+                console.log("Form submitted successfully");
+                setTimeout(() => {
+                  window.location.href = '/cost_analysis_form.html/';
+                },2000);
+                 // Redirect to the desired page
             } else {
                 alert('Error: ' + data.message);
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            // alert('There was an error submitting the form.');
+            alert('There was an error submitting the form.');
         });
-    });
-});
+    })
+})
