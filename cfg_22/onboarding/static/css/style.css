@@ -2,6 +2,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 body {
@@ -11,20 +12,16 @@ body {
     background: linear-gradient(to right, #acd6a2, #7ecaa4, #388a7a);
     background-size: cover;
     background-attachment: fixed;
+    width: 100vw;
 }
 
 header {
     color: white;
     display: flex;
-    padding: 0rem 10vw;
     justify-content: space-between;
     height: 10vh;
     padding: 1rem 10vw;
-}
-
-header h1 {
-    margin: 0;
-    
+    margin-bottom: 2rem;
 }
 
 nav ul {
@@ -34,12 +31,22 @@ nav ul {
 
 nav ul li {
     display: inline;
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 
 nav ul li a {
-    color: white;
     text-decoration: none;
+    border:#acd6a2 solid 4px;
+    padding: 0.75rem;
+    color: rgb(0, 0, 0);
+    font-size: 1.5rem;
+}
+
+nav ul li a:hover {
+    color: #acd6a2;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: 0.75s;
 }
 
 main {
@@ -67,9 +74,8 @@ footer {
 #img {
     position: relative; /* Ensure the parent is positioned */
     width: 100vw; /* Full viewport width */
-    height: 50vh; /* Adjust height as needed */
+    height: 200vh; /* Adjust height as needed */
 }
-
 /* Background Image Styling */
 #img::before {
     content: ""; /* Empty content for the pseudo-element */
@@ -77,10 +83,10 @@ footer {
     top: 0;
     left: 0;
     width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full height of the parent */
+    height: 243vh; /* Full height of the parent */
     background-image: url('../images/matriarch-3.webp');
-    background-size: cover; /* Cover ensures the image spans the full width and height */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-size:  cover; /* Cover ensures the image spans the full width and height */
+    background-repeat: repeat-y; /* Repeats the image vertically */
     background-position: center; /* Centers the image within the element */
     opacity: 0.2; /* Sets the opacity for the background image */
     z-index: -1; /* Sends the pseudo-element behind the content of the parent */
@@ -155,5 +161,42 @@ img {
 #logo {
     margin-top: 0;
     height: 13vh;
-    width: 10vw;
+    width: 11vw;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.cards {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card {
+    text-align: center;
+    border: #acd6a2 solid 4px;
+    width: 30%;
+    height: 20vw;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+p {
+    font-size: 1.20rem;
+}
+
+.card p {
+    font-size: 1.20rem;
+    text-align: center;
+    padding-left: 5%;
+    padding-right: 5%;
 }
