@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My App</title>
+    <title>TST</title>
     <link rel="stylesheet" href="../../static/css/style.css">
     <script src="../../static/js/script.js"></script>
 </head>
@@ -13,7 +13,7 @@
     <div id="img">
         <!-- <img src="../../static/images/Elephant.png" alt=""> -->
         <header>
-            <img src="../../static/images/logo_dark.png" id="logo" alt="">
+            <a href="{% url 'index' %}"><img src="../../static/images/logo_dark.png" id="logo" alt=""></a>
             <nav>
                 <ul>
                     <li><a href="{% url 'identify' %}">Make a Difference</a></li>
@@ -58,7 +58,7 @@
                 </div>
             </section>
 
-            <section>
+            <section id="approach">
                 <h2>Our Approach</h2>
                 <h3>1. Identification and Mapping</h3>
                 <p>We use advanced drone and satellite technology, along with machine learning, to accurately identify

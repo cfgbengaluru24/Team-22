@@ -4,62 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Identify Area</title>
-    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/style_identify.css">
     <script src="../../static/js/script.js"></script>
 </head>
-<body>
-    <main>
-        <div id="img">
-            <header>
-                <h1>Identify Area</h1>
-                <nav>
-                    <ul>
-                        <li><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="{% url 'identify' %}">Identify Page</a></li>
-                    </ul>
-                </nav>
-            </header>
-            <h1>Enter Area Details</h1>
-        <form method="post" id="areaForm" enctype="multipart/form-data">
-            <!-- Text Fields -->
-            <div class="form-group">
-                <label for="place">Place:</label>
-                <input type="text" id="place" name="place" required>
-            </div>
-            <div class="form-group">
-                <label for="range">Range:</label>
-                <input type="text" id="range" name="range" required>
-            </div>
 
-            <!-- Integer Fields -->
-            <div class="form-group">
-                <label for="longitude">Longitude:</label>
-                <input type="number" id="longitude" name="longitude" required>
-            </div>
-            <div class="form-group">
-                <label for="latitude">Latitude:</label>
-                <input type="number" id="latitude" name="latitude" required>
-            </div>
-            
-            <!-- Image Upload Fields -->
-            <div class="form-group">
-                <p>Top View:</p>
-                <label for="top_view" class="images"><img src="../../static/images/cloud-arrow-up-solid.svg" alt="">Choose File</label>
-                <p id="msg1">No file chosen</p>
-                <input type="file" id="top_view" name="top_view" accept="image/*" required>
-            </div>
-            <div class="form-group">
-                <p>Side View:</p>
-                <label for="side_view" class="images"><img src="../../static/images/cloud-arrow-up-solid.svg" alt="">Choose File</label>
-                <p id="msg2">No file chosen</p>
-                <input type="file" id="side_view" name="side_view" accept="image/*" required>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-        </div>
-    </main>
-    <!-- <footer>
-        <p>&copy; 2024 The Shola Trust</p>
-    </footer> -->
+
+<body>
+    <div id="img">
+        <!-- <img src="../../static/images/Elephant.png" alt=""> -->
+        <header>
+            <a href="{% url 'index' %}"><img src="../../static/images/logo_dark.png" id="logo" alt=""></a>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'identify' %}">Make a Difference</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <form method="post" id="areaForm" enctype="multipart/form-data">
+                <!-- Text Fields -->
+                <div class="form-group">
+                    <label for="place">Place:</label>
+                    <input type="text" id="place" name="place" required>
+                </div>
+                <div class="form-group">
+                    <label for="range">Range:</label>
+                    <input type="text" id="range" name="range" required>
+                </div>
+    
+                <!-- Integer Fields -->
+                <div class="form-group">
+                    <label for="longitude">Longitude:</label>
+                    <input type="number" id="longitude" name="longitude" required>
+                </div>
+                <div class="form-group">
+                    <label for="latitude">Latitude:</label>
+                    <input type="number" id="latitude" name="latitude" required>
+                </div>
+                
+                <!-- Image Upload Fields -->
+                <div class="form-group">
+                    <p>Top View:</p>
+                    <label for="top_view" class="images"><img src="../../static/images/cloud-arrow-up-solid.svg" alt="">Choose File</label>
+                    <p id="msg1">No file chosen</p>
+                    <input type="file" id="top_view" name="top_view" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <p>Side View:</p>
+                    <label for="side_view" class="images"><img src="../../static/images/cloud-arrow-up-solid.svg" alt="">Choose File</label>
+                    <p id="msg2">No file chosen</p>
+                    <input type="file" id="side_view" name="side_view" accept="image/*" required>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </main>
+        <!-- <footer>
+            <p>&copy; 2024 The Shola Trust. All rights reserved.</p>
+        </footer> -->
+    </div>
 </body>
 </html>
