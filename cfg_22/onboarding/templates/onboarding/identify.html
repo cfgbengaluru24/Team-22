@@ -40,6 +40,10 @@
                 <label for="latitude">Latitude:</label>
                 <input type="number" id="latitude" name="latitude" required>
             </div>
+            <div class="form-group">
+                <label for="height">Height:</label>
+                <input type="number" id="height" name="height" required>
+            </div>
             
             <!-- Image Upload Fields -->
             <div class="form-group">
@@ -47,12 +51,6 @@
                 <label for="top_view" class="images"><img src="../../static/images/cloud-arrow-up-solid.svg" alt="">Choose File</label>
                 <p id="msg1">No file chosen</p>
                 <input type="file" id="top_view" name="top_view" accept="image/*" required>
-            </div>
-            <div class="form-group">
-                <p>Side View:</p>
-                <label for="side_view" class="images"><img src="../../static/images/cloud-arrow-up-solid.svg" alt="">Choose File</label>
-                <p id="msg2">No file chosen</p>
-                <input type="file" id="side_view" name="side_view" accept="image/*" required>
             </div>
             <button type="submit">Submit</button>
         </form>

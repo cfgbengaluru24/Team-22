@@ -186,30 +186,6 @@
                 </div>
             </div>
 
-            <!-- Income Generation -->
-            <div class="form-section">
-                <h4 class="form-title">Income Generation</h4>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="communityIncome">Expected Income from Community Participation:</label>
-                        <input type="number" class="form-control" id="communityIncome" step="0.01" value="{{ communityIncome }}" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="biomassRevenue">Expected Revenue from Biomass Sales:</label>
-                        <input type="number" class="form-control" id="biomassRevenue" step="0.01" value="{{ biomassRevenue }}" required>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cost per Kilogram of Lantana Biomass -->
-            <div class="form-section">
-                <h4 class="form-title">Cost per Kilogram of Lantana Biomass</h4>
-                <div class="form-group">
-                    <label for="totalBiomass">Total Kilograms of Biomass:</label>
-                    <input type="number" class="form-control" id="totalBiomass" step="0.01" value="{{ totalBiomass }}" required>
-                </div>
-            </div>
-
             <button type="submit" class="btn btn-primary">Calculate Costs</button>
         </form>
 
@@ -238,65 +214,67 @@
         function calculateCosts(event) {
             event.preventDefault();
 
+            console.log("calculateCosts function called");
+
             // Labour Costs
             const wage = parseFloat(document.getElementById('wage').value) || 0;
             const hours = parseFloat(document.getElementById('hours').value) || 0;
             const trainingCost = parseFloat(document.getElementById('trainingCost').value) || 0;
             const labourCost = (wage * hours) + trainingCost;
+            console.log("Labour Cost:", labourCost);
 
             // Storage Costs
             const storageCost = parseFloat(document.getElementById('storageCost').value) || 0;
             const units = parseFloat(document.getElementById('units').value) || 0;
             const storageTotal = storageCost * units;
+            console.log("Storage Total:", storageTotal);
 
             // Machinery Operation Costs
             const usageCost = parseFloat(document.getElementById('usageCost').value) || 0;
             const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value) || 0;
             const machineryTotal = usageCost + maintenanceCost;
+            console.log("Machinery Total:", machineryTotal);
 
             // Supervision Charges
             const supervisors = parseFloat(document.getElementById('supervisors').value) || 0;
             const supervisorWages = parseFloat(document.getElementById('supervisorWages').value) || 0;
             const supervisionTotal = supervisors * supervisorWages;
+            console.log("Supervision Total:", supervisionTotal);
 
             // Land Mopping Costs
             const landCost = parseFloat(document.getElementById('landCost').value) || 0;
+            console.log("Land Cost:", landCost);
 
             // Biomass Processing Costs
             const processingCost = parseFloat(document.getElementById('processingCost').value) || 0;
             const transportCost = parseFloat(document.getElementById('transportCost').value) || 0;
             const biomassProcessingTotal = processingCost + transportCost;
+            console.log("Biomass Processing Total:", biomassProcessingTotal);
 
             // Monitoring Costs
             const routineChecks = parseFloat(document.getElementById('routineChecks').value) || 0;
             const assessments = parseFloat(document.getElementById('assessments').value) || 0;
             const monitoringTotal = routineChecks + assessments;
+            console.log("Monitoring Total:", monitoringTotal);
 
             // Restoration Costs
             const plantingCost = parseFloat(document.getElementById('plantingCost').value) || 0;
             const soilAmendments = parseFloat(document.getElementById('soilAmendments').value) || 0;
             const restorationTotal = plantingCost + soilAmendments;
+            console.log("Restoration Total:", restorationTotal);
 
             // Overhead and Management Costs
             const adminCost = parseFloat(document.getElementById('adminCost').value) || 0;
             const managementCost = parseFloat(document.getElementById('managementCost').value) || 0;
             const overheadManagementTotal = adminCost + managementCost;
-
-            // Income Generation
-            const communityIncome = parseFloat(document.getElementById('communityIncome').value) || 0;
-            const biomassRevenue = parseFloat(document.getElementById('biomassRevenue').value) || 0;
-            const incomeTotal = communityIncome + biomassRevenue;
+            console.log("Overhead and Management Total:", overheadManagementTotal);
 
             // Cost per Hectare
             const totalCostPerHectare = labourCost + storageTotal + machineryTotal + supervisionTotal + landCost + biomassProcessingTotal + monitoringTotal + restorationTotal + overheadManagementTotal;
-
-            // Cost per Kilogram of Lantana Biomass
-            const totalBiomass = parseFloat(document.getElementById('totalBiomass').value) || 0;
-            const costPerKg = totalBiomass > 0 ? totalCostPerHectare / totalBiomass : 0;
+            console.log("Total Cost per Hectare:", totalCostPerHectare);
 
             // Display Results
             document.getElementById('totalCostPerHectare').innerText = `Rs ${totalCostPerHectare.toFixed(2)}`;
-            document.getElementById('costPerKg').innerText = `Rs ${costPerKg.toFixed(2)}`;
 
             // Show results section
             document.getElementById('resultsSection').style.display = 'block';
