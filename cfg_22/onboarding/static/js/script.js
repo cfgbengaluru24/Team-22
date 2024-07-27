@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("Form submitted successfully");
                 setTimeout(() => {
                   window.location.href = '/cost_analysis';
-                },2000);
+                },200);
                  // Redirect to the desired page
             } else {
                 alert('Error: ' + data.message);
