@@ -1,4 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Function to update file input labels
+    function updateFileName(event) {
+        // Get the file input element
+        const fileInput = event.target;
+        
+        // Get the corresponding message element
+        let messageElementId = fileInput.id === 'top_view' ? 'msg1' : 'msg2';
+        const messageElement = document.getElementById(messageElementId);
+        
+        // Check if a file was selected
+        if (fileInput.files.length > 0) {
+            // Update the message to the selected file name
+            messageElement.textContent = fileInput.files[0].name;
+        } else {
+            // Reset the message if no file is selected
+            messageElement.textContent = 'No file chosen';
+        }
+    }
+
+    // Attach the updateFileName function to file input elements
+    function onFileChange() {
+        // Get all file inputs
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        fileInputs.forEach(fileInput => {
+            fileInput.addEventListener('change', updateFileName);
+        });
+    }
+
+    // Initialize the file change event listener
+    onFileChange();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('areaForm');
 
     form.addEventListener('submit', function(event) {
@@ -6,25 +39,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const formData = new FormData(form); // Create a FormData object from the form
 
-        fetch('/api/save_data/', { // Update this URL to your API endpoint
+        fetch('/save_data', { // Update this URL to your API endpoint
             method: 'POST',
             body: formData,
-            headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value // Include CSRF token for Django
-            }
+            // headers: {
+            //     'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value // Include CSRF token for Django
+            // }
         })
         .then(response => response.json()) // Parse JSON response
         .then(data => {
             if (data.success) {
-                alert('Data submitted successfully!');
-                window.location.href = "{% url 'index' %}" // Optionally reset the form
+                // Redirect to /index page
+                document.location.href = "/index";
             } else {
                 alert('Error: ' + data.message);
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('There was an error submitting the form.');
+            // alert('There was an error submitting the form.');
         });
     });
 });

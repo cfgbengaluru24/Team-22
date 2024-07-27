@@ -8,17 +8,17 @@
     <script src="../../static/js/script.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Identify Area</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'identify' %}">Identify Page</a></li>
-            </ul>
-        </nav>
-    </header>
     <main>
         <div id="img">
+            <header>
+                <h1>Identify Area</h1>
+                <nav>
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'identify' %}">Identify Page</a></li>
+                    </ul>
+                </nav>
+            </header>
             <h1>Enter Area Details</h1>
         <form method="post" id="areaForm" enctype="multipart/form-data">
             <!-- Text Fields -->
@@ -45,11 +45,13 @@
             <div class="form-group">
                 <p>Top View:</p>
                 <label for="top_view" class="images"><img src="../../static/images/cloud-arrow-up-solid.svg" alt="">Choose File</label>
+                <p id="msg1">No file chosen</p>
                 <input type="file" id="top_view" name="top_view" accept="image/*" required>
             </div>
             <div class="form-group">
-                <p>Top View:</p>
+                <p>Side View:</p>
                 <label for="side_view" class="images"><img src="../../static/images/cloud-arrow-up-solid.svg" alt="">Choose File</label>
+                <p id="msg2">No file chosen</p>
                 <input type="file" id="side_view" name="side_view" accept="image/*" required>
             </div>
             <button type="submit">Submit</button>
