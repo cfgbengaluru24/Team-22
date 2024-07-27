@@ -264,7 +264,11 @@
         </div>
     </div>
 
-    <div id="measuresArea" data-measure-area="{{measures.area}}"></div>
+    <div id="measureData" 
+        data-area="{{ measure.area }}"
+        data-biomass-kg="{{ measure.biomass }}">
+    </div>
+
 
     <!-- <footer class="mt-auto">
         <p>&copy; 2024 Lantana Removal Project. All Rights Reserved.</p>
@@ -332,15 +336,23 @@
             const overheadManagementTotal = adminCost + managementCost;
             console.log("Overhead and Management Total:", overheadManagementTotal);
 
+            const measureElement = document.getElementById('measureData');
+            const area = measureElement.dataset.area;
+            const biomassKg = measureElement.dataset.biomassKg;
+
+            console.log(area,biomassKg);
+
             // Cost per Hectare
             const totalCostPerHectare = labourCost + storageTotal + machineryTotal + supervisionTotal + landCost + biomassProcessingTotal + monitoringTotal + restorationTotal + overheadManagementTotal;
-            console.log("Total Cost per Hectare:", totalCostPerHectare );
-
+            console.log("Total Cost per Hectare:", (totalCostPerHectare*10000)/area );
+            
             // Display Results
-            document.getElementById('totalCostPerHectare').innerText = `Rs ${totalCostPerHectare.toFixed(2)/(`{measures.area}`)}`;
+            document.getElementById('totalCostPerHectare').innerText = `Rs ${((totalCostPerHectare*10000)/area).toFixed(2)}`;
 
             // Show results section
             document.getElementById('resultsSection').style.display = 'block';
+
+            document.getElementById('costPerKg').innerText = `Rs ${((totalCostPerHectare*10000)/biomassKg).toFixed(2)}`;
         }
     </script>
 </body>

@@ -14,7 +14,7 @@ measures=cfg_db['measures']
 def fetch_default(request):
     print("abcd")
     documents = list(cost_collection.find())
-    measure=list(measures.find_one())
+    measure=measures.find_one()
     sums = {
         "wage": 0,
         "hours": 0,
@@ -45,7 +45,7 @@ def fetch_default(request):
             sums[key] += doc.get(key, 0)
 
     averages = {key: (sums[key] / counts) if counts > 0 else 0 for key in sums.keys()}
-    print(averages)
+    print(measure)
     return render(request, 'cost_analysis/cost_analysis_form.html', {"averages":averages,"measure":measure})
 
 def cost(request):
