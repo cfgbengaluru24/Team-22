@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('/', views.calculate_averages, name='calculate_averages'),
+    path('', views.fetch_default, name='fetch_default'),
 ]

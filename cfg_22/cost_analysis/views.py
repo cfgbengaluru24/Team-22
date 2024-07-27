@@ -1,20 +1,17 @@
-# from django.shortcuts import render
+from django.shortcuts import render
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
-import random
 
 load_dotenv()
-MONGO_URI=os.getenv("MONGO_URI")
+MONGO_URI = os.getenv("MONGO_URI")
 
 client = MongoClient(MONGO_URI)
 cfg_db = client['cfg_22']
 cost_collection = cfg_db['cost_collection']
 
-
 def fetch_default(request):
     documents = list(cost_collection.find())
-
     sums = {
         "wage": 0,
         "hours": 0,
@@ -44,5 +41,7 @@ def fetch_default(request):
         for key in sums.keys():
             sums[key] += doc.get(key, 0)
 
-    averages = {key: (sums[key] / counts) for key in sums.keys()}
-    print(averages)
+    averages = {key: (sums[key] / counts) if counts > 0 else 0 for key in sums.keys()}
+    
+    return render(request, 'cost_analysis/cost_analysis_form.html', averages)
+
