@@ -32,6 +32,7 @@ nav ul {
 nav ul li {
     display: inline;
     /* margin-right: 10px; */
+    margin-left: 3rem;
 }
 
 nav ul li a {
@@ -108,10 +109,16 @@ form {
     margin-bottom: 20px; /* Add spacing between form groups */
 }
 
+#noimage .form-group {
+    width: 75%;
+    margin-bottom: 20px; /* Add spacing between form groups */
+}
+
 /* Label and Input Field Styling */
 label {
     display: block; /* Ensures labels are on their own line */
     padding-bottom: 0.5rem; /* Adds space below the label */
+    font-size: 1.2rem;
 }
 
 input[type="number"],
@@ -124,6 +131,10 @@ input[type="text"] {
     box-sizing: border-box; /* Ensures padding and border are included in the width */
 }
 
+#noimage {
+    width: 50%;
+}
+
 input[type="file"] {
     display: none;
 }
@@ -131,8 +142,9 @@ input[type="file"] {
 .images {
     display: block; /* Ensures file input is on its own line */
     width: 100%; /* Spans full width of the form-group */
-    height: 364px; /* Adjust height as needed */
+    height: 400px; /* Adjust height as needed */
     border: 2px dashed #ffffff; /* Dashed border for file input */
+    border-radius: 8px;
     background-color: transparent; /* Transparent background for file input */
     cursor: pointer;
     box-sizing: border-box; /* Ensures border is included in the width */
@@ -140,19 +152,35 @@ input[type="file"] {
     display: block;
 }
 
+.images:hover {
+    display: block; /* Ensures file input is on its own line */
+    width: 100%; /* Spans full width of the form-group */
+    height: 400px; /* Adjust height as needed */
+    border: 2px dashed #acd6a2; /* Dashed border for file input */
+    border-radius: 8px;
+    background-color: transparent; /* Transparent background for file input */
+    cursor: pointer;
+    box-sizing: border-box; /* Ensures border is included in the width */
+    text-align: center;
+    display: block;
+}
+
+
 button {
-    padding: 10px 20px; /* Adjust padding */
-    background-color: #388a7a;
+    background-color: #000000;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     display: block; /* Ensures button is on its own line */
-    width: 100%; /* Spans full width of the form-group */
+    width: 25%; /* Spans full width of the form-group */
+    font-size: 1.25rem;
+    border:#acd6a2 solid 4px;
+    padding: 0.35rem 1rem;
 }
 
 button:hover {
-    background-color: #55ad9b;
+    background-color: #acd6a2;
 }
 
 
@@ -202,8 +230,9 @@ h3 {
     padding-right: 0%;
 }
 
-#approach p {
+.form-group p {
     font-size: 1.25rem;
+    margin-bottom: 0.5rem;
     /* margin-top: 1rem;
     margin-bottom: 0.5rem; */
     /* padding-left: 5%; */
