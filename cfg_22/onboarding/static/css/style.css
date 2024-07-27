@@ -87,45 +87,66 @@ footer {
 
 form {
     width: 80vw;
-    margin-left: 10vw;
-    margin-right: 10vw;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .form-group {
-    width: 40%;
+    width: 45%;
     margin-bottom: 20px; /* Add spacing between form groups */
 }
 
-/* Image Input Styling */
-input[type="file"] {
-    display: block;
-    width: 100%;
-    height: 200px; /* Adjust height as needed */
-    border: 2px dotted #ccc; /* Dotted border for image input */
-    background-color: transparent; /* Transparent background for file input */
-    cursor: pointer;
+/* Label and Input Field Styling */
+label {
+    display: block; /* Ensures labels are on their own line */
+    padding-bottom: 0.5rem; /* Adds space below the label */
 }
 
 input[type="number"],
 input[type="text"] {
-    width: 100%; /* Span full width of the form-group */
+    display: block; /* Ensures inputs are on their own line */
+    width: 100%; /* Spans full width of the form-group */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.images {
+    display: block; /* Ensures file input is on its own line */
+    width: 100%; /* Spans full width of the form-group */
+    height: 364px; /* Adjust height as needed */
+    border: 2px dashed #ffffff; /* Dashed border for file input */
+    background-color: transparent; /* Transparent background for file input */
+    cursor: pointer;
+    box-sizing: border-box; /* Ensures border is included in the width */
+    text-align: center;
+    display: block;
 }
 
 button {
-    padding: 10px 20px;
+    padding: 10px 20px; /* Adjust padding */
     background-color: #388a7a;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    display: block; /* Ensures button is on its own line */
+    width: 100%; /* Spans full width of the form-group */
 }
 
 button:hover {
     background-color: #55ad9b;
+}
+
+
+img {
+    margin-top: 20%;
+    width: 100%;
+    height: 10rem;
 }
