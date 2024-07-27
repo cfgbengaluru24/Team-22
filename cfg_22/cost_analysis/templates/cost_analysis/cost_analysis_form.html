@@ -15,12 +15,14 @@
 
         body {
             display: flex;
+            justify-content: space-between;
             flex-direction: column;
             min-height: 100vh;
         }
 
         .container {
             flex: 1;
+            padding: 0 5vw;
         }
 
         .form-section {
@@ -50,28 +52,32 @@
             display: flex;
             justify-content: space-between;
             height: 16vh;
-            padding: 1rem 5vw;
+            padding: 1rem 10vw;
             margin-bottom: 2rem;
         }
 
         button {
-            background-color: #000000;
-            color: white;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
             border: none;
             border-radius: 4px;
             cursor: pointer;
             display: block;
             /* Ensures button is on its own line */
-            width: 15%;
+            width: 20%;
             /* Spans full width of the form-group */
+            margin-bottom: 1rem;
             font-size: 1.25rem;
-            border: #000000 solid 4px;
+            border: #acd6a2 solid 4px;
             padding: 0.35rem 1rem;
         }
 
         button:hover {
             background-color: #acd6a2;
+            border: #acd6a2 solid 4px;
         }
+
+        
 
         header h1 {
             margin-top: 1%;
@@ -89,6 +95,24 @@
             height: 13vh;
             width: 11vw;
         }
+
+        #buttons {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        button a:hover {
+            background-color: #acd6a2;
+            /* border: #acd6a2 solid 4px; */
+            text-decoration: none;
+            color: black;
+        } 
     </style>
 </head>
 
@@ -98,7 +122,7 @@
         <h1>Lantana Removal and Restoration Cost Analysis</h1>
     </header>
     <div class="container">
-        <h2 class="text-center mb-4">Cost Analysis Form</h2>
+        <h2 class="mb-4">Cost Analysis</h2>
         <form id="costForm" onsubmit="calculateCosts(event)">
             <!-- Labour Costs -->
             <div class="form-section">
@@ -106,17 +130,19 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="wage">Wages for Workers (Hourly Wage):</label>
-                        <input type="number" class="form-control" id="wage" step="0.01" value="{{ averages.wage }}" required>
+                        <input type="number" class="form-control" id="wage" step="0.01" value="{{ averages.wage }}"
+                            required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="hours">Total Hours Worked:</label>
-                        <input type="number" class="form-control" id="hours" step="0.01" value="{{ averages.hours }}" required>
+                        <input type="number" class="form-control" id="hours" step="0.01" value="{{ averages.hours }}"
+                            required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="trainingCost">Training Costs:</label>
-                    <input type="number" class="form-control" id="trainingCost" step="0.01" value="{{ averages.trainingCost }}"
-                        required>
+                    <input type="number" class="form-control" id="trainingCost" step="0.01"
+                        value="{{ averages.trainingCost }}" required>
                 </div>
             </div>
 
@@ -126,12 +152,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="storageCost">Cost per Unit:</label>
-                        <input type="number" class="form-control" id="storageCost" step="0.01" value="{{ averages.storageCost }}"
-                            required>
+                        <input type="number" class="form-control" id="storageCost" step="0.01"
+                            value="{{ averages.storageCost }}" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="units">Total Units:</label>
-                        <input type="number" class="form-control" id="units" step="0.01" value="{{ averages.units }}" required>
+                        <input type="number" class="form-control" id="units" step="0.01" value="{{ averages.units }}"
+                            required>
                     </div>
                 </div>
             </div>
@@ -142,8 +169,8 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="usageCost">Usage Costs:</label>
-                        <input type="number" class="form-control" id="usageCost" step="0.01" value="{{ averages.usageCost }}"
-                            required>
+                        <input type="number" class="form-control" id="usageCost" step="0.01"
+                            value="{{ averages.usageCost }}" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="maintenanceCost">Regular Maintenance:</label>
@@ -159,8 +186,8 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="supervisors">Number of Supervisors:</label>
-                        <input type="number" class="form-control" id="supervisors" step="1" value="{{ averages.supervisors }}"
-                            required>
+                        <input type="number" class="form-control" id="supervisors" step="1"
+                            value="{{ averages.supervisors }}" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="supervisorWages">Supervisor Wages:</label>
@@ -175,7 +202,8 @@
                 <h4 class="form-title">Land Mopping Costs</h4>
                 <div class="form-group">
                     <label for="landCost">Cost per Hectare:</label>
-                    <input type="number" class="form-control" id="landCost" step="0.01" value="{{ averages.landCost }}" required>
+                    <input type="number" class="form-control" id="landCost" step="0.01" value="{{ averages.landCost }}"
+                        required>
                 </div>
             </div>
 
@@ -207,8 +235,8 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="assessments">Assessment Costs:</label>
-                        <input type="number" class="form-control" id="assessments" step="0.01" value="{{ averages.assessments }}"
-                            required>
+                        <input type="number" class="form-control" id="assessments" step="0.01"
+                            value="{{ averages.assessments }}" required>
                     </div>
                 </div>
             </div>
@@ -236,8 +264,8 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="adminCost">Administrative Costs:</label>
-                        <input type="number" class="form-control" id="adminCost" step="0.01" value="{{ averages.adminCost }}"
-                            required>
+                        <input type="number" class="form-control" id="adminCost" step="0.01"
+                            value="{{ averages.adminCost }}" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="managementCost">Management Costs:</label>
@@ -246,8 +274,10 @@
                     </div>
                 </div>
             </div>
-
-            <button type="submit" class="btn">Calculate Costs</button>
+            <div id="buttons">
+                <button type="submit">Calculate Costs</button>
+                <button> <a href="http://localhost:8501" target="_blank" class="button">Dashboard</a></button>
+            </div>
         </form>
 
         <!-- Results Section -->
@@ -334,10 +364,10 @@
 
             // Cost per Hectare
             const totalCostPerHectare = labourCost + storageTotal + machineryTotal + supervisionTotal + landCost + biomassProcessingTotal + monitoringTotal + restorationTotal + overheadManagementTotal;
-            console.log("Total Cost per Hectare:", totalCostPerHectare );
+            console.log("Total Cost per Hectare:", totalCostPerHectare);
 
             // Display Results
-            document.getElementById('totalCostPerHectare').innerText = `Rs ${totalCostPerHectare.toFixed(2)/(`{measures.area}`)}`;
+            document.getElementById('totalCostPerHectare').innerText = `Rs ${totalCostPerHectare.toFixed(2) / (`{measures.area}`)}`;
 
             // Show results section
             document.getElementById('resultsSection').style.display = 'block';
