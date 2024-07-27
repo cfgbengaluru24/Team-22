@@ -4,45 +4,45 @@ from dotenv import load_dotenv
 import os
 import random
 
-client = MongoClient('connection_string')
-db = client['db_name']
-
 load_dotenv()
 MONGO_URI=os.getenv("MONGO_URI")
 
+client = MongoClient(MONGO_URI)
 cfg_db = client['cfg_22']
 cost_collection = cfg_db['cost_collection']
 
 
+def fetch_default(request):
+    documents = list(cost_collection.find())
 
-def generate_dummy_data():
-    return {
-        "wage": round(random.uniform(15, 50), 2),
-        "hours": round(random.uniform(5, 40), 2),
-        "trainingCost": round(random.uniform(100, 1000), 2),
-        "storageCost": round(random.uniform(20, 100), 2),
-        "units": round(random.uniform(1, 10), 2),
-        "usageCost": round(random.uniform(100, 1000), 2),
-        "maintenanceCost": round(random.uniform(50, 500), 2),
-        "supervisors": round(random.uniform(1, 5), 2),
-        "supervisorWages": round(random.uniform(20, 100), 2),
-        "landCost": round(random.uniform(100, 1000), 2),
-        "processingCost": round(random.uniform(50, 500), 2),
-        "transportCost": round(random.uniform(20, 200), 2),
-        "routineChecks": round(random.uniform(10, 100), 2),
-        "assessments": round(random.uniform(50, 300), 2),
-        "plantingCost": round(random.uniform(100, 1000), 2),
-        "soilAmendments": round(random.uniform(50, 300), 2),
-        "adminCost": round(random.uniform(100, 500), 2),
-        "managementCost": round(random.uniform(100, 500), 2),
-        "communityIncome": round(random.uniform(50, 500), 2),
-        "biomassRevenue": round(random.uniform(100, 1000), 2),
-        "totalBiomass": round(random.uniform(1000, 10000), 2)
+    sums = {
+        "wage": 0,
+        "hours": 0,
+        "trainingCost": 0,
+        "storageCost": 0,
+        "units": 0,
+        "usageCost": 0,
+        "maintenanceCost": 0,
+        "supervisors": 0,
+        "supervisorWages": 0,
+        "landCost": 0,
+        "processingCost": 0,
+        "transportCost": 0,
+        "routineChecks": 0,
+        "assessments": 0,
+        "plantingCost": 0,
+        "soilAmendments": 0,
+        "adminCost": 0,
+        "managementCost": 0,
+        "communityIncome": 0,
+        "biomassRevenue": 0,
+        "totalBiomass": 0
     }
+    counts = len(documents)
 
-# Insert multiple dummy documents
-dummy_documents = [generate_dummy_data() for _ in range(20)]
-# print(dummy_documents)
-cost_collection.insert_many(dummy_documents)
+    for doc in documents:
+        for key in sums.keys():
+            sums[key] += doc.get(key, 0)
 
-print("Dummy data inserted successfully!")
+    averages = {key: (sums[key] / counts) for key in sums.keys()}
+    print(averages)
