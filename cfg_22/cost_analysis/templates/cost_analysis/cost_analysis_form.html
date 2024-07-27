@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lantana Removal Cost Analysis</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            flex: 1;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        .form-title {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .result-section {
+            display: none;
+            margin-top: 20px;
+        }
+        .result-title {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        header {
+            background-color: green;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lantana Removal and Restoration Cost Analysis</h1>
+    </header>
+
+    <div class="container">
+        <h2 class="text-center mb-4">Cost Analysis Form</h2>
+        <form id="costForm" onsubmit="calculateCosts(event)">
+            <!-- Labour Costs -->
+            <div class="form-section">
+                <h4 class="form-title">Labour Costs</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="wage">Wages for Workers (Hourly Wage):</label>
+                        <input type="number" class="form-control" id="wage" step="0.01" value="{{ wage }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="hours">Total Hours Worked:</label>
+                        <input type="number" class="form-control" id="hours" step="0.01" value="{{ hours }}" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="trainingCost">Training Costs:</label>
+                    <input type="number" class="form-control" id="trainingCost" step="0.01" value="{{ trainingCost }}" required>
+                </div>
+            </div>
+
+            <!-- Storage Costs -->
+            <div class="form-section">
+                <h4 class="form-title">Storage Costs</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="storageCost">Cost per Unit:</label>
+                        <input type="number" class="form-control" id="storageCost" step="0.01" value="{{ storageCost }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="units">Total Units:</label>
+                        <input type="number" class="form-control" id="units" step="0.01" value="{{ units }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Machinery Operation Costs -->
+            <div class="form-section">
+                <h4 class="form-title">Machinery Operation Costs</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="usageCost">Usage Costs:</label>
+                        <input type="number" class="form-control" id="usageCost" step="0.01" value="{{ usageCost }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="maintenanceCost">Regular Maintenance:</label>
+                        <input type="number" class="form-control" id="maintenanceCost" step="0.01" value="{{ maintenanceCost }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supervision Charges -->
+            <div class="form-section">
+                <h4 class="form-title">Supervision Charges</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="supervisors">Number of Supervisors:</label>
+                        <input type="number" class="form-control" id="supervisors" step="1" value="{{ supervisors }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="supervisorWages">Supervisor Wages:</label>
+                        <input type="number" class="form-control" id="supervisorWages" step="0.01" value="{{ supervisorWages }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Land Mopping Costs -->
+            <div class="form-section">
+                <h4 class="form-title">Land Mopping Costs</h4>
+                <div class="form-group">
+                    <label for="landCost">Cost per Hectare:</label>
+                    <input type="number" class="form-control" id="landCost" step="0.01" value="{{ landCost }}" required>
+                </div>
+            </div>
+
+            <!-- Biomass Processing Costs -->
+            <div class="form-section">
+                <h4 class="form-title">Biomass Processing Costs</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="processingCost">Processing Costs:</label>
+                        <input type="number" class="form-control" id="processingCost" step="0.01" value="{{ processingCost }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="transportCost">Transport Costs:</label>
+                        <input type="number" class="form-control" id="transportCost" step="0.01" value="{{ transportCost }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monitoring Costs -->
+            <div class="form-section">
+                <h4 class="form-title">Monitoring Costs</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="routineChecks">Routine Check Costs:</label>
+                        <input type="number" class="form-control" id="routineChecks" step="0.01" value="{{ routineChecks }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="assessments">Assessment Costs:</label>
+                        <input type="number" class="form-control" id="assessments" step="0.01" value="{{ assessments }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restoration Costs -->
+            <div class="form-section">
+                <h4 class="form-title">Restoration Costs</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="plantingCost">Planting Costs:</label>
+                        <input type="number" class="form-control" id="plantingCost" step="0.01" value="{{ plantingCost }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="soilAmendments">Soil Treatment Costs:</label>
+                        <input type="number" class="form-control" id="soilAmendments" step="0.01" value="{{ soilAmendments }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overhead and Management Costs -->
+            <div class="form-section">
+                <h4 class="form-title">Overhead and Management Costs</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="adminCost">Administrative Costs:</label>
+                        <input type="number" class="form-control" id="adminCost" step="0.01" value="{{ adminCost }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="managementCost">Management Costs:</label>
+                        <input type="number" class="form-control" id="managementCost" step="0.01" value="{{ managementCost }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Income Generation -->
+            <div class="form-section">
+                <h4 class="form-title">Income Generation</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="communityIncome">Expected Income from Community Participation:</label>
+                        <input type="number" class="form-control" id="communityIncome" step="0.01" value="{{ communityIncome }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="biomassRevenue">Expected Revenue from Biomass Sales:</label>
+                        <input type="number" class="form-control" id="biomassRevenue" step="0.01" value="{{ biomassRevenue }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cost per Kilogram of Lantana Biomass -->
+            <div class="form-section">
+                <h4 class="form-title">Cost per Kilogram of Lantana Biomass</h4>
+                <div class="form-group">
+                    <label for="totalBiomass">Total Kilograms of Biomass:</label>
+                    <input type="number" class="form-control" id="totalBiomass" step="0.01" value="{{ totalBiomass }}" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Calculate Costs</button>
+        </form>
+
+        <!-- Results Section -->
+        <div class="result-section" id="resultsSection">
+            <h2 class="text-center mb-4">Cost Analysis Results</h2>
+            <div class="form-group">
+                <h4 class="result-title">Total Cost per Hectare:</h4>
+                <p id="totalCostPerHectare"></p>
+            </div>
+            <div class="form-group">
+                <h4 class="result-title">Cost per Kilogram of Lantana Biomass:</h4>
+                <p id="costPerKg"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-auto">
+        <p>&copy; 2024 Lantana Removal Project. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function calculateCosts(event) {
+            event.preventDefault();
+
+            // Labour Costs
+            const wage = parseFloat(document.getElementById('wage').value) || 0;
+            const hours = parseFloat(document.getElementById('hours').value) || 0;
+            const trainingCost = parseFloat(document.getElementById('trainingCost').value) || 0;
+            const labourCost = (wage * hours) + trainingCost;
+
+            // Storage Costs
+            const storageCost = parseFloat(document.getElementById('storageCost').value) || 0;
+            const units = parseFloat(document.getElementById('units').value) || 0;
+            const storageTotal = storageCost * units;
+
+            // Machinery Operation Costs
+            const usageCost = parseFloat(document.getElementById('usageCost').value) || 0;
+            const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value) || 0;
+            const machineryTotal = usageCost + maintenanceCost;
+
+            // Supervision Charges
+            const supervisors = parseFloat(document.getElementById('supervisors').value) || 0;
+            const supervisorWages = parseFloat(document.getElementById('supervisorWages').value) || 0;
+            const supervisionTotal = supervisors * supervisorWages;
+
+            // Land Mopping Costs
+            const landCost = parseFloat(document.getElementById('landCost').value) || 0;
+
+            // Biomass Processing Costs
+            const processingCost = parseFloat(document.getElementById('processingCost').value) || 0;
+            const transportCost = parseFloat(document.getElementById('transportCost').value) || 0;
+            const biomassProcessingTotal = processingCost + transportCost;
+
+            // Monitoring Costs
+            const routineChecks = parseFloat(document.getElementById('routineChecks').value) || 0;
+            const assessments = parseFloat(document.getElementById('assessments').value) || 0;
+            const monitoringTotal = routineChecks + assessments;
+
+            // Restoration Costs
+            const plantingCost = parseFloat(document.getElementById('plantingCost').value) || 0;
+            const soilAmendments = parseFloat(document.getElementById('soilAmendments').value) || 0;
+            const restorationTotal = plantingCost + soilAmendments;
+
+            // Overhead and Management Costs
+            const adminCost = parseFloat(document.getElementById('adminCost').value) || 0;
+            const managementCost = parseFloat(document.getElementById('managementCost').value) || 0;
+            const overheadManagementTotal = adminCost + managementCost;
+
+            // Income Generation
+            const communityIncome = parseFloat(document.getElementById('communityIncome').value) || 0;
+            const biomassRevenue = parseFloat(document.getElementById('biomassRevenue').value) || 0;
+            const incomeTotal = communityIncome + biomassRevenue;
+
+            // Cost per Hectare
+            const totalCostPerHectare = labourCost + storageTotal + machineryTotal + supervisionTotal + landCost + biomassProcessingTotal + monitoringTotal + restorationTotal + overheadManagementTotal;
+
+            // Cost per Kilogram of Lantana Biomass
+            const totalBiomass = parseFloat(document.getElementById('totalBiomass').value) || 0;
+            const costPerKg = totalBiomass > 0 ? totalCostPerHectare / totalBiomass : 0;
+
+            // Display Results
+            document.getElementById('totalCostPerHectare').innerText = `Rs ${totalCostPerHectare.toFixed(2)}`;
+            document.getElementById('costPerKg').innerText = `Rs ${costPerKg.toFixed(2)}`;
+
+            // Show results section
+            document.getElementById('resultsSection').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
