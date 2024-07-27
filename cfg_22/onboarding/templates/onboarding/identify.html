@@ -3,26 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My App</title>
+    <title>Identify Area</title>
     <link rel="stylesheet" href="../../static/css/style.css">
     <script src="../../static/js/script.js"></script>
 </head>
-
 <body>
-    <div id="img">
-        <!-- <img src="../../static/images/Elephant.png" alt=""> -->
-        <header>
-            <h1>The Shola Trust</h1>
-            <nav>
-                <ul>
-                    <li><a href="identify.html">Join the movement</a></li>
-                </ul>
-            </nav>
-        </header>
-   
-        <footer>
-            <p>&copy; 2024 The Shola Trust. All rights reserved.</p>
-        </footer>
-    </div>
+    <header>
+        <h1>Identify Area</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'identify' %}">Identify Page</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Enter Area Details</h1>
+        <form method="post" id="areaForm" enctype="multipart/form-data">
+            {% csrf_token %}
+             <!-- Integer Fields -->
+             <div class="form-group">
+                <label for="longitude">Longitude:</label>
+                <input type="number" id="longitude" name="longitude" required>
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude:</label>
+                <input type="number" id="latitude" name="latitude" required>
+            </div>
+            
+            <!-- Text Fields -->
+            <div class="form-group">
+                <label for="place">Place:</label>
+                <input type="text" id="place" name="place" required>
+            </div>
+            <div class="form-group">
+                <label for="range">Range:</label>
+                <input type="text" id="range" name="range" required>
+            </div>
+            <!-- Image Upload Fields -->
+            <div class="form-group">
+                <label for="top_view">Top View:</label>
+                <input type="file" id="top_view" name="top_view" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="side_view">Side View:</label>
+                <input type="file" id="side_view" name="side_view" accept="image/*" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2024 The Shola Trust</p>
+    </footer>
 </body>
 </html>
