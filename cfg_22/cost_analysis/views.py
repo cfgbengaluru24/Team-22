@@ -9,9 +9,12 @@ MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 cfg_db = client['cfg_22']
 cost_collection = cfg_db['cost_collection']
+measures=cfg_db['measures']
 
 def fetch_default(request):
+    print("abcd")
     documents = list(cost_collection.find())
+    measure=list(measures.find_one())
     sums = {
         "wage": 0,
         "hours": 0,
@@ -42,8 +45,8 @@ def fetch_default(request):
             sums[key] += doc.get(key, 0)
 
     averages = {key: (sums[key] / counts) if counts > 0 else 0 for key in sums.keys()}
-    
-    return render(request, 'cost_analysis/cost_analysis_form.html', averages)
+    print(averages)
+    return render(request, 'cost_analysis/cost_analysis_form.html', {"averages":averages,"measure":measure})
 
 def cost(request):
     return render(request, 'cost_analysis/cost_analysis_form.html')

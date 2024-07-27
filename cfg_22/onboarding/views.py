@@ -20,6 +20,7 @@ client = MongoClient(MONGO_URI)
 
 cfg_db = client['cfg_22']
 onboarding = cfg_db['onboarding']
+measures=cfg_db['measures']
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -72,8 +73,9 @@ def save_data(request):
 
         # Remove the temporary file after processing
         os.remove(temp_file_path)
+        print(doc)
+        measures.insert_one({'area': res[0], 'biomass': res[1]})
 
-        # print(doc)
         onboarding.insert_one(doc)
         print("now redirecting")
         return JsonResponse({'success': True, 'message': 'Data saved successfully.'})

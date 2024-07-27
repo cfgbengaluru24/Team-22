@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 console.log("Form submitted successfully");
                 setTimeout(() => {
-                  window.location.href = '/cost_analysis_form.html/';
+                  window.location.href = '/cost_analysis';
                 },2000);
                  // Redirect to the desired page
             } else {

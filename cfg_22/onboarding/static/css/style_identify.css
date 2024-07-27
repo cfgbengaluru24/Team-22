@@ -176,7 +176,7 @@ button {
     display: block; /* Ensures button is on its own line */
     width: 25%; /* Spans full width of the form-group */
     font-size: 1.25rem;
-    border:#acd6a2 solid 4px;
+    border:#000000 solid 4px;
     padding: 0.35rem 1rem;
 }
 

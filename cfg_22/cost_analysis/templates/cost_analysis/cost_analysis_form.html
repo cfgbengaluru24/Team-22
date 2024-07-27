@@ -1,55 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lantana Removal Cost Analysis</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
+
         .container {
             flex: 1;
         }
+
         .form-section {
             margin-bottom: 20px;
         }
+
         .form-title {
             background-color: #f8f9fa;
             padding: 10px;
             border-radius: 5px;
         }
+
         .result-section {
             display: none;
             margin-top: 20px;
         }
+
         .result-title {
             background-color: #f8f9fa;
             padding: 10px;
             border-radius: 5px;
         }
+
         header {
-            background-color: green;
             color: white;
-            text-align: center;
-            padding: 20px 0;
-            margin-bottom: 20px;
+            background-color: #acd6a2;
+            display: flex;
+            justify-content: space-between;
+            height: 16vh;
+            padding: 1rem 5vw;
+            margin-bottom: 2rem;
         }
+
+        button {
+            background-color: #000000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            /* Ensures button is on its own line */
+            width: 15%;
+            /* Spans full width of the form-group */
+            font-size: 1.25rem;
+            border: #000000 solid 4px;
+            padding: 0.35rem 1rem;
+        }
+
+        button:hover {
+            background-color: #acd6a2;
+        }
+
+        header h1 {
+            margin-top: 1%;
+            margin-right: 0%;
+        }
+
         footer {
             background-color: #f8f9fa;
             padding: 10px;
             text-align: center;
         }
+
+        #logo {
+            margin-top: 0;
+            height: 13vh;
+            width: 11vw;
+        }
     </style>
 </head>
+
 <body>
     <header>
+        <a href="{% url 'index' %}"><img src="../../static/images/logo_dark.png" id="logo" alt=""></a>
         <h1>Lantana Removal and Restoration Cost Analysis</h1>
     </header>
-
     <div class="container">
         <h2 class="text-center mb-4">Cost Analysis Form</h2>
         <form id="costForm" onsubmit="calculateCosts(event)">
@@ -59,16 +106,17 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="wage">Wages for Workers (Hourly Wage):</label>
-                        <input type="number" class="form-control" id="wage" step="0.01" value="{{ wage }}" required>
+                        <input type="number" class="form-control" id="wage" step="0.01" value="{{ averages.wage }}" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="hours">Total Hours Worked:</label>
-                        <input type="number" class="form-control" id="hours" step="0.01" value="{{ hours }}" required>
+                        <input type="number" class="form-control" id="hours" step="0.01" value="{{ averages.hours }}" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="trainingCost">Training Costs:</label>
-                    <input type="number" class="form-control" id="trainingCost" step="0.01" value="{{ trainingCost }}" required>
+                    <input type="number" class="form-control" id="trainingCost" step="0.01" value="{{ averages.trainingCost }}"
+                        required>
                 </div>
             </div>
 
@@ -78,11 +126,12 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="storageCost">Cost per Unit:</label>
-                        <input type="number" class="form-control" id="storageCost" step="0.01" value="{{ storageCost }}" required>
+                        <input type="number" class="form-control" id="storageCost" step="0.01" value="{{ averages.storageCost }}"
+                            required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="units">Total Units:</label>
-                        <input type="number" class="form-control" id="units" step="0.01" value="{{ units }}" required>
+                        <input type="number" class="form-control" id="units" step="0.01" value="{{ averages.units }}" required>
                     </div>
                 </div>
             </div>
@@ -93,11 +142,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="usageCost">Usage Costs:</label>
-                        <input type="number" class="form-control" id="usageCost" step="0.01" value="{{ usageCost }}" required>
+                        <input type="number" class="form-control" id="usageCost" step="0.01" value="{{ averages.usageCost }}"
+                            required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="maintenanceCost">Regular Maintenance:</label>
-                        <input type="number" class="form-control" id="maintenanceCost" step="0.01" value="{{ maintenanceCost }}" required>
+                        <input type="number" class="form-control" id="maintenanceCost" step="0.01"
+                            value="{{ averages.maintenanceCost }}" required>
                     </div>
                 </div>
             </div>
@@ -108,11 +159,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="supervisors">Number of Supervisors:</label>
-                        <input type="number" class="form-control" id="supervisors" step="1" value="{{ supervisors }}" required>
+                        <input type="number" class="form-control" id="supervisors" step="1" value="{{ averages.supervisors }}"
+                            required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="supervisorWages">Supervisor Wages:</label>
-                        <input type="number" class="form-control" id="supervisorWages" step="0.01" value="{{ supervisorWages }}" required>
+                        <input type="number" class="form-control" id="supervisorWages" step="0.01"
+                            value="{{ averages.supervisorWages }}" required>
                     </div>
                 </div>
             </div>
@@ -122,7 +175,7 @@
                 <h4 class="form-title">Land Mopping Costs</h4>
                 <div class="form-group">
                     <label for="landCost">Cost per Hectare:</label>
-                    <input type="number" class="form-control" id="landCost" step="0.01" value="{{ landCost }}" required>
+                    <input type="number" class="form-control" id="landCost" step="0.01" value="{{ averages.landCost }}" required>
                 </div>
             </div>
 
@@ -132,11 +185,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="processingCost">Processing Costs:</label>
-                        <input type="number" class="form-control" id="processingCost" step="0.01" value="{{ processingCost }}" required>
+                        <input type="number" class="form-control" id="processingCost" step="0.01"
+                            value="{{ averages.processingCost }}" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="transportCost">Transport Costs:</label>
-                        <input type="number" class="form-control" id="transportCost" step="0.01" value="{{ transportCost }}" required>
+                        <input type="number" class="form-control" id="transportCost" step="0.01"
+                            value="{{ averages.transportCost }}" required>
                     </div>
                 </div>
             </div>
@@ -147,11 +202,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="routineChecks">Routine Check Costs:</label>
-                        <input type="number" class="form-control" id="routineChecks" step="0.01" value="{{ routineChecks }}" required>
+                        <input type="number" class="form-control" id="routineChecks" step="0.01"
+                            value="{{ averages.routineChecks }}" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="assessments">Assessment Costs:</label>
-                        <input type="number" class="form-control" id="assessments" step="0.01" value="{{ assessments }}" required>
+                        <input type="number" class="form-control" id="assessments" step="0.01" value="{{ averages.assessments }}"
+                            required>
                     </div>
                 </div>
             </div>
@@ -162,11 +219,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="plantingCost">Planting Costs:</label>
-                        <input type="number" class="form-control" id="plantingCost" step="0.01" value="{{ plantingCost }}" required>
+                        <input type="number" class="form-control" id="plantingCost" step="0.01"
+                            value="{{ averages.plantingCost }}" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="soilAmendments">Soil Treatment Costs:</label>
-                        <input type="number" class="form-control" id="soilAmendments" step="0.01" value="{{ soilAmendments }}" required>
+                        <input type="number" class="form-control" id="soilAmendments" step="0.01"
+                            value="{{ averages.soilAmendments }}" required>
                     </div>
                 </div>
             </div>
@@ -177,16 +236,18 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="adminCost">Administrative Costs:</label>
-                        <input type="number" class="form-control" id="adminCost" step="0.01" value="{{ adminCost }}" required>
+                        <input type="number" class="form-control" id="adminCost" step="0.01" value="{{ averages.adminCost }}"
+                            required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="managementCost">Management Costs:</label>
-                        <input type="number" class="form-control" id="managementCost" step="0.01" value="{{ managementCost }}" required>
+                        <input type="number" class="form-control" id="managementCost" step="0.01"
+                            value="{{ averages.managementCost }}" required>
                     </div>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Calculate Costs</button>
+            <button type="submit" class="btn">Calculate Costs</button>
         </form>
 
         <!-- Results Section -->
@@ -203,9 +264,11 @@
         </div>
     </div>
 
-    <footer class="mt-auto">
+    <div id="measuresArea" data-measure-area="{{measures.area}}"></div>
+
+    <!-- <footer class="mt-auto">
         <p>&copy; 2024 Lantana Removal Project. All Rights Reserved.</p>
-    </footer>
+    </footer> -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
@@ -271,14 +334,15 @@
 
             // Cost per Hectare
             const totalCostPerHectare = labourCost + storageTotal + machineryTotal + supervisionTotal + landCost + biomassProcessingTotal + monitoringTotal + restorationTotal + overheadManagementTotal;
-            console.log("Total Cost per Hectare:", totalCostPerHectare);
+            console.log("Total Cost per Hectare:", totalCostPerHectare );
 
             // Display Results
-            document.getElementById('totalCostPerHectare').innerText = `Rs ${totalCostPerHectare.toFixed(2)}`;
+            document.getElementById('totalCostPerHectare').innerText = `Rs ${totalCostPerHectare.toFixed(2)/(`{measures.area}`)}`;
 
             // Show results section
             document.getElementById('resultsSection').style.display = 'block';
         }
     </script>
 </body>
+
 </html>
