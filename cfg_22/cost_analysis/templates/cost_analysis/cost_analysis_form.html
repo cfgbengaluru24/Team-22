@@ -102,6 +102,9 @@
             justify-content: space-between;
         }
 
+        header a {
+            background-color: #acd6a2;
+        }
         a {
             background-color: #ffffff;
             color: rgb(0, 0, 0);
@@ -109,6 +112,7 @@
             border-radius: 4px;
             cursor: pointer;
             display: block;
+            justify-content: center;
             /* Ensures button is on its own line */
             width: 20%;
             /* Spans full width of the form-group */
@@ -118,9 +122,34 @@
             padding: 0.35rem 1rem;
             text-decoration: none;
             color: black;
+            text-align: center;
+        }
+        
+        button a {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            /* Ensures button is on its own line */
+            /* Spans full width of the form-group */
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            border: #acd6a2 solid 0px;
+            padding: 0.35rem 1rem;
+            text-decoration: none;
+            color: black;
         }
 
         a:hover {
+            background-color: #acd6a2;
+            /* border: #acd6a2 solid 4px; */
+            text-decoration: none;
+            color: black;
+        } 
+
+        button a:hover {
             background-color: #acd6a2;
             /* border: #acd6a2 solid 4px; */
             text-decoration: none;
@@ -289,11 +318,10 @@
             </div>
             <div id="buttons">
                 <button type="submit" id="submit">Calculate Costs</button>
-                
-                <!-- <button><a href="http://localhost:8501" target="_blank" class="button">Dashboard</a></button> -->
             </div>
         </form>
-        <a href="{% url 'revenue_ca' %}" class="button">Calculate Revenue</a>
+        <a href="http://localhost:8501" target="_blank" class="button"><p>Dashboard</p></a>
+        <a href="{% url 'revenue_ca' %}" class="button"><p>Calculate Revenue</p></a>
         <!-- Results Section -->
         <div class="result-section" id="resultsSection">
             <h2 class="text-center mb-4">Cost Analysis Results</h2>
@@ -391,12 +419,12 @@
             console.log("Total Cost per Hectare:", (totalCostPerHectare*10000)/area );
             
             // Display Results
-            document.getElementById('totalCostPerHectare').innerText = `Rs ${((totalCostPerHectare*10000)/area).toFixed(2)}`;
+            document.getElementById('totalCostPerHectare').innerText = `Rs ${((totalCostPerHectare*10000000)/area).toFixed(2)}`;
 
             // Show results section
             document.getElementById('resultsSection').style.display = 'block';
 
-            document.getElementById('costPerKg').innerText = `Rs ${((totalCostPerHectare*10000)/biomassKg).toFixed(2)}`;
+            document.getElementById('costPerKg').innerText = `Rs ${((totalCostPerHectare*10000000)/biomassKg).toFixed(2)}`;
         }
     </script>
 </body>

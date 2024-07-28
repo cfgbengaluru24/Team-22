@@ -6,6 +6,42 @@
     font-size: 1.1rem;
 }
 
+
+header {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    height: 10vh;
+    padding: 1rem 10vw;
+    margin-bottom: 2rem;
+}
+
+nav ul {
+    list-style: none;
+    padding: 1rem 0;
+}
+
+nav ul li {
+    display: inline;
+    /* margin-right: 10px; */
+    margin-left: 3rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    border:#acd6a2 solid 4px;
+    padding: 0.75rem;
+    color: rgb(0, 0, 0);
+    font-size: 1.5rem;
+}
+
+nav ul li a:hover {
+    color: #acd6a2;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: 0.75s;
+} 
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;

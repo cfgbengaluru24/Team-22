@@ -9,6 +9,15 @@
     <script src="{% static 'js/script.js' %}"></script>
 </head>
 <body>
+    <header>
+        <a href="{% url 'index' %}"><img src="../../static/images/logo_dark.png" id="logo" alt=""></a>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'identify' %}">Make a Difference</a></li>
+            </ul>
+        </nav>
+    </header>
     <div class="container">
         <h1>Calculate Profit</h1>
         
