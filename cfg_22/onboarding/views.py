@@ -1,10 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from pymongo import MongoClient
 from dotenv import load_dotenv
-from django.http import JsonResponse
 import os
 import random
 from datetime import datetime
@@ -12,15 +11,15 @@ import cv2
 import numpy as np
 from PIL import Image
 from tempfile import NamedTemporaryFile
+import math
 
 load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")
 
 client = MongoClient(MONGO_URI)
-
 cfg_db = client['cfg_22']
 onboarding = cfg_db['onboarding']
-measures=cfg_db['measures']
+measures = cfg_db['measures']
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -31,36 +30,24 @@ def save_data(request):
 
         range_val = data.get('range')
         place = data.get('place')
-        latitude = data.get('latitude')
-        longitude = data.get('longitude')
-        height = data.get('height')
-        # print(data)
+        latitude = float(data.get('latitude'))
+        longitude = float(data.get('longitude'))
+        height = float(data.get('height'))
 
         # Save images to MongoDB
         topview_id = save_image(topview)
 
         current_datetime = datetime.now()
 
-        # Create a new document in the onboarding collection
-        doc = {
-            'topview': topview_id,
-            'range': range_val,
-            'place': place,
-            'latitude': latitude,
-            'longitude': longitude,
-            'height': height,
-            'current_datetime': current_datetime
-        }
-
-        yield_per_m2 = 1.5 
+        yield_per_m2 = 1.5
 
         color_ranges = [
             ([100, 50, 50], [140, 255, 255]),  # Blue color range (for lakes)
             ([10, 50, 50], [25, 255, 255]),    # Brown color range (for land)
-            ([35, 50, 50], [85, 255, 255]),
+            ([35, 50, 50], [85, 255, 255]),    # Green color range (for vegetation)
             ([60, 40, 60], [80, 60, 90])
         ]
-        
+
         # Save the top_view file temporarily
         with NamedTemporaryFile(delete=False) as temp_file:
             for chunk in topview.chunks():
@@ -68,14 +55,42 @@ def save_data(request):
             temp_file_path = temp_file.name  # Path to the temporary file
 
         # Process the image using the temporary file path
-        res=calc_size(temp_file_path, height, color_ranges, yield_per_m2)
-
+        res = calc_size(temp_file_path, height, color_ranges, yield_per_m2)
+        print(res)
 
         # Remove the temporary file after processing
         os.remove(temp_file_path)
+
+        # Prepare the document to insert
+        doc = {
+            'topview': topview_id,
+            'range': range_val,
+            'place': place,
+            'latitude': math.floor(latitude),
+            'longitude': math.floor(longitude),
+            'height': height,
+            'current_datetime': current_datetime,
+            'area': res[0]
+        }
         print(doc)
+
+        # Insert the measures into the database
         measures.insert_one({'area': res[0], 'biomass': res[1]})
 
+        # Check for existing records with the same floored latitude and longitude
+        existing_record = onboarding.find_one({'longitude': math.floor(longitude), 'latitude': math.floor(latitude)})
+        print(existing_record)
+        if existing_record:
+            new_area = res[0]
+            if new_area < existing_record['area']:
+                change_amount = existing_record['area'] - new_area
+                print("change_amount***************************************",change_amount)
+                return JsonResponse({'success': True, 'message': 'Lantana decreased.', 'change': change_amount})
+            else:
+                print("&&&&&&&&&&&&&&&&&&&&&")
+                return JsonResponse({'success': True, 'message': 'Lantana increased.'})
+
+        # Insert the new record if no existing record was found
         onboarding.insert_one(doc)
         print("now redirecting")
         return JsonResponse({'success': True, 'message': 'Data saved successfully.'})
@@ -106,7 +121,7 @@ def remove_colors(image_path, color_ranges):
 
     result = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask))
 
-    result_path = 'f5_NGO_filtered.jpg'
+    result_path = 'filtered_image.jpg'
     cv2.imwrite(result_path, result)
     return result_path
 
@@ -139,10 +154,10 @@ def calc_size(image_path, pixel_size_meters, color_ranges, yield_per_m2):
     
     print(f"The number of pixels in the filtered image is {number_of_pixels:.2f}.")
     print(f"The area is {area_meters:.2f} square meters.")
-    print(f"The estimated lantanas is {biomass_kg:.2f} kg.")
-    print(f"The estimated lantanas is {biomass_metric_tons:.2f} metric tons.")
+    print(f"The estimated biomass is {biomass_kg:.2f} kg.")
+    print(f"The estimated biomass is {biomass_metric_tons:.2f} metric tons.")
 
-    return [area_meters,biomass_kg]
+    return [area_meters, biomass_kg]
 
 def index(request):
     return render(request, 'onboarding/index.html')

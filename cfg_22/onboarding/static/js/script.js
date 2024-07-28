@@ -45,11 +45,17 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json()) // Parse JSON response
         .then(data => {
+            console.log(data);
             if (data.success) {
-                console.log("Form submitted successfully");
+                console.log("hello");
                 setTimeout(() => {
-                  window.location.href = '/cost_analysis';
-                },200);
+                    window.location.href = '/cost_analysis';
+                  },2000);
+                  console.log("hello");
+                alert(data.message);  // Alert the message (Lantana decrease/increase)
+                if ('change' in data) {
+                    alert('Lantana change amount: ' + data.change);  // Alert the change amount if present
+                }
                  // Redirect to the desired page
             } else {
                 alert('Error: ' + data.message);
