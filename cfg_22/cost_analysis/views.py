@@ -50,3 +50,6 @@ def fetch_default(request):
 
 def cost(request):
     return render(request, 'cost_analysis/cost_analysis_form.html')
+
+def revenue(request):
+    return render(request, 'cost_analysis/revenue.html')

@@ -150,3 +150,5 @@ def index(request):
 def identify(request):
     return render(request, 'onboarding/identify.html')
 
+def revenue(request):
+    return render(request, 'cost_analysis/revenue.html')

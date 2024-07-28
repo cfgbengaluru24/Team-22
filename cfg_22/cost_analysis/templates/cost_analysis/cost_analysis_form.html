@@ -103,11 +103,24 @@
         }
 
         a {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            /* Ensures button is on its own line */
+            width: 20%;
+            /* Spans full width of the form-group */
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            border: #acd6a2 solid 4px;
+            padding: 0.35rem 1rem;
             text-decoration: none;
             color: black;
         }
 
-        button a:hover {
+        a:hover {
             background-color: #acd6a2;
             /* border: #acd6a2 solid 4px; */
             text-decoration: none;
@@ -275,11 +288,12 @@
                 </div>
             </div>
             <div id="buttons">
-                <button type="submit">Calculate Costs</button>
-                <button> <a href="http://localhost:8501" target="_blank" class="button">Dashboard</a></button>
+                <button type="submit" id="submit">Calculate Costs</button>
+                
+                <!-- <button><a href="http://localhost:8501" target="_blank" class="button">Dashboard</a></button> -->
             </div>
         </form>
-
+        <a href="{% url 'revenue_ca' %}" class="button">Calculate Revenue</a>
         <!-- Results Section -->
         <div class="result-section" id="resultsSection">
             <h2 class="text-center mb-4">Cost Analysis Results</h2>
